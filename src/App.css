@@ -1,0 +1,38 @@
+/* 
+全局样式文件
+*/
+
+/* 导入antd样式 */
+@import '~antd/dist/antd.css';
+.content {
+    width: 90%;
+    min-width: 1000px;
+    height: 100vh;
+    overflow: auto;
+    padding: 0px  50px 130px;
+    background-color: #fff;
+}
+
+/* 隐藏滚动条 */
+/* body::-webkit-scrollbar {
+    display: none;
+} */
+/* 隐藏滚动条 */
+body {
+    overflow: hidden;
+}
+
+/* 底部播放器 */
+.audio-control {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+.ant-pagination-options {
+    display: none!important;
+}

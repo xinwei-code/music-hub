@@ -1,0 +1,48 @@
+.result-container div:first-child {
+  font-weight: 600;
+}
+.result-container div span:first-child {
+  margin-right: 10px;
+  font-size: 32px;
+}
+.result-container div span:nth-child(2) {
+  margin: 0 10px;
+  color: #409eff;
+}
+
+.playlist-result {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.playlist-result li {
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+.playlist-result li img {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+}
+
+.playlist-result li div {
+  width: 200px;
+  text-align: center;
+}
+
+/* mv的结果 */
+.mv-result {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.mv-result li {
+  width: 240px;
+  margin: 0 50px 30px 0;
+  cursor: pointer;
+}
+.mv-result li img {
+  width: 240px;
+  height: 135px;
+  border-radius: 12px;
+}

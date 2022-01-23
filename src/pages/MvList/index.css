@@ -1,0 +1,74 @@
+.mv_container {
+  display: flex;
+  margin-bottom: 50px;
+}
+.mv_main {
+  flex: 0.7;
+}
+
+.mv_recommend {
+  flex: 0.3;
+}
+.mv_title {
+  margin-bottom: 24px;
+}
+#audio {
+  display: block;
+  width: 700px;
+  margin: 0 auto;
+}
+
+.mv-icon {
+  font-size: 12px;
+  border: 2px solid red;
+  color: red;
+  padding: 0 3px;
+  margin-right: 10px;
+}
+.mv-singer {
+  margin-top: 20px;
+}
+.mv-singer img {
+  vertical-align: middle;
+  margin: 10px 10px 10px 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.mv-singer span {
+  font-size: 20px;
+  color: #333;
+}
+.mv_description {
+  padding: 0 20px;
+}
+.mv-desc {
+  color: #888787;
+  font-size: 13px;
+}
+
+/* 推荐区域 */
+.mv_recommend {
+  width: 200px;
+}
+.mv-rec-item {
+  display: flex;
+  margin: 20px 0;
+  cursor: pointer;
+}
+.mv-rec-item img {
+  width: 140px;
+  height: 80px;
+  border-radius: 8px;
+}
+.mv-rec-item div {
+  margin-left: 15px;
+}
+.mv-rec-item div span {
+  font-size: 16px;
+  color: #000000;
+}
+.mv-rec-item div h3 {
+  color: #afafaf;
+  font-size: 13px;
+}

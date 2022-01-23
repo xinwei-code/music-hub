@@ -1,0 +1,25 @@
+#main {
+    display: flex;
+    overflow: hidden;
+}
+
+#sider {
+    width: 200px;
+    background-color: #f9f9f9;
+
+}
+
+#sider div {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+#sider div:hover {
+    background-color: #e2e2e2;
+    cursor: pointer;
+}
+.active {
+background-color: #e2e2e2;
+color: #1890ff;
+}

@@ -1,0 +1,52 @@
+/* 头部区域 */
+.header {
+    background-color: rgb(249, 249, 249);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.header-left {
+    display: flex;
+    align-items: center;
+}
+.header-left .logo{
+    margin-left: 10px;
+    background-color: rgb(55, 55, 55);
+    border-radius: 10px;
+    width: 120px;
+    height: 50px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+.header-left .logo span {
+      height: 31px;
+      line-height: 31px;
+      background-color: #409eff;
+      color: #000;
+      border-radius: 10px;
+      padding: 0px 5px;
+}
+/* 历史记录 */
+.history {
+    margin-left: 16px;
+    padding-top: 30px;
+}
+.circlefilled {
+    font-size: 36px;
+    margin-right: 14px;
+    color: #ededed;
+}
+.circlefilled:hover {
+    cursor: pointer;
+    color: #ccc;
+}
+
+/* 右侧盒子 */
+.header-right {
+    display: flex;
+}

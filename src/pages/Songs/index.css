@@ -1,0 +1,26 @@
+/* .box {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+} */
+
+.active {
+  border-radius: 8px;
+  color: blue;
+  background-color: #abd5ff;
+}
+.small {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+.small li {
+  margin: 20px 10px;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  padding: 3px 6px;
+}

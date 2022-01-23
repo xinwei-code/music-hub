@@ -1,0 +1,38 @@
+.mvs-container {
+  min-width: 500px;
+}
+
+.filter_wrap {
+  margin-top: 40px;
+  font-size: 15px;
+}
+.filter_wrap>div {
+    display: flex;
+}
+.filter_wrap>div ul {
+    list-style: none;
+    display: flex;
+}
+.filter_wrap>div ul li {
+    margin: 0 20px;
+    font-size: 14px;
+}
+
+/* mv列表 */
+.mv_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.mv-item {
+    width: 260px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.mv-item img{
+    width: 260px;
+    height: 160px;
+    border-radius: 8px;
+}
