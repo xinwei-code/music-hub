@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { useSearchParams,useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Comment, Tooltip, Avatar } from 'antd'
 
 // api
@@ -68,7 +68,13 @@ export default function MvList() {
             </span>
           </div>
           {/* mv */}
-          <video poster={mvMsg.cover} controls id="audio" src={mvurl}></video>
+          <video
+            autoPlay
+            poster={mvMsg.cover}
+            controls
+            id="audio"
+            src={mvurl}
+          ></video>
           <div className="mv_description">
             <div className="mv-singer">
               <img src={SingerInfo.picUrl} alt="" />
@@ -92,7 +98,9 @@ export default function MvList() {
                   className="mv-rec-item"
                   key={index}
                   onClick={() =>
-                    navigate(`/mvlist?id=${item.id}&artistId=${item.artists[0].id}`)
+                    navigate(
+                      `/mvlist?id=${item.id}&artistId=${item.artists[0].id}`
+                    )
                   }
                 >
                   <img src={item.cover} alt="" />
