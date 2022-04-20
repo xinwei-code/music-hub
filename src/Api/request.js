@@ -3,7 +3,7 @@ import nprogress from 'nprogress'
 
 export default function request(config) {
   const instance = axios.create({
-    baseURL: 'https://cloud-music-jdpmbpbxg-weixin.vercel.app',
+    baseURL: 'https://xin-music-api.vercel.app/',
     // baseURL: 'http://localhost:3000',
     // timeout: 5000,
   })
