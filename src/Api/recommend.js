@@ -2,7 +2,7 @@
 推荐页面接口
 */
 
-import request from './request'
+import request from '../utils/request'
 
 //歌单介绍接口
 export const getDescription = (limit = 1, tag = '全部') => {

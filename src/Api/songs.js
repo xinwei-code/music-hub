@@ -2,7 +2,7 @@
 获取歌曲（20条）
 */
 
-import request from './request'
+import request from '../utils/request'
 
 //通过歌曲类型获取热门歌曲
 export const getSongs = type => {
@@ -31,4 +31,3 @@ export const getSongUrl = id => {
     params: { id },
   })
 }
-

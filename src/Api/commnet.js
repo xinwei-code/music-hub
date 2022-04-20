@@ -1,4 +1,4 @@
-import request from './request'
+import request from '../utils/request'
 // 获取最热评论
 export const getHotComment = paramsObj => {
   return request({

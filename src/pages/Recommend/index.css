@@ -1,92 +1,21 @@
 /* 头部区域 */
-.introduce-box {
-    position: relative;
+.recommend-head {
+  width: 100%;
+  margin-top: 16px;
+  overflow: hidden;
 }
-/* 遮罩层 */
-.bg-mask {
-    position: absolute;
-    top: 0;
-    width: 99%;
+.recommend-head img {
+    width: 200px;
     height: 200px;
-    background-size:cover; 
-    filter:blur(8px); 
-}
-/* 推荐盒子 */
-.recommend-header {
-    position: absolute;
-    display: flex;
-    background-color: rgba(0, 0, 0, .7);
-    width: 100%;
-    height: 200px;
-    padding: 20px;
-    overflow: hidden;   
-}
-.recommend-header-img {
-    width: 160px;
-    height: 160px;
-    border-radius: 10px;
-}
-.recommend-header-right {
-    padding-left: 20px;
-}
-.classify-icon {
-    border-radius: 5px;
-    border: 1px solid #dfac67;
-    padding: 6px 10px;
-    color: #dfac67;
-}
-.songlist-desc {
-    padding-top: 14px;
-    color: #ccc;
-    font-size: 13px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 6;
-}
-.recommend-classification {
-    display: flex;
-    padding-top: 220px;
-    justify-content: flex-end;
-}
-.recommend-classification li {
-    cursor: pointer;
-    padding: 3px 6px;
-    margin-right: 18px;
-    list-style: none;
-    font-size: 16px;
-}
-/* 当tag被选中是的样式 */
-.classify-active {
-    border-radius: 8px;
-    color: blue;
-    background-color: #abd5ff;
-}
-.recommend-songslist {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* margin-bottom: 10px; */
-}
-.recommend-songslist div {
-    width: 180px;
-    height: 240px;
-    /* margin-right: 20px; */
-    cursor: pointer;
-    
-}
-.recommend-songslist div img {
-    width: 180px;
-    height:180px;
-    border-radius: 6px;
+    float: left;
+    margin-right:  20px;
 }
 
-/* .recommend-songslist div p {
-    width: 100%;
-    height: 20px;
-    display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-} */
+.tag-list {
+    margin: 20px 0;
+}
+
+.recommend-songs {
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -5,12 +5,12 @@
 /* 导入antd样式 */
 @import '~antd/dist/antd.css';
 .content {
-    width: 90%;
-    min-width: 1000px;
-    height: 100vh;
-    overflow: auto;
-    padding: 0px  50px 130px;
-    background-color: #fff;
+  width: 90%;
+  min-width: 1000px;
+  height: 100vh;
+  overflow: auto;
+  padding: 0px 50px 130px;
+  background-color: #fff;
 }
 
 /* 隐藏滚动条 */
@@ -19,20 +19,27 @@
 } */
 /* 隐藏滚动条 */
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* 底部播放器 */
 .audio-control {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 .ant-pagination-options {
-    display: none!important;
+  display: none !important;
+}
+
+.global-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

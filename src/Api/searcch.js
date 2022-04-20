@@ -1,4 +1,4 @@
-import request from './request'
+import request from '../utils/request'
 
 //根据关键字搜索歌曲
 export const getSearchResult = (searchVal, type = 1, page = 1, limit = 10) => {

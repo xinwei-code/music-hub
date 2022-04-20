@@ -1,3 +1,30 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mv-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+
 .mvs-container {
   min-width: 500px;
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Comment, Tooltip, Avatar } from 'antd'
 
@@ -19,7 +19,6 @@ export default function MvList() {
   const artistId = searchParams.get('artistId')
 
   const navigate = useNavigate()
-
   // mvUrl:
   const [mvurl, setMvUrl] = useState('')
   //评论
@@ -31,30 +30,29 @@ export default function MvList() {
   //mv介绍
   const [mvMsg, setMvMsg] = useState({})
 
-  //获取数据
-  const fetchData = useCallback(async () => {
-    const { data } = await getMVURL(id)
-    const { hotComments } = await getCommentOfMv(id)
-    const { data: mvInfo } = await getInfoAboutMV(id)
-    const { mvs } = await getRecommendMV(id)
-    const { artist } = await getSingerInfo(artistId)
-
-    //更新状态
-    setMvUrl(data.url)
-    setMvComments(hotComments)
-    setMvList(mvs)
-    setSingerInfo(artist)
-    setMvMsg(mvInfo)
-    // console.log(data.url)
-    // console.log(hotComments)
-    console.log(mvs)
-    // console.log(artist)
-    // console.log(mvInfo)
-  }, [id, artistId])
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await getMVURL(id)
+      const { hotComments } = await getCommentOfMv(id)
+      const { data: mvInfo } = await getInfoAboutMV(id)
+      const { mvs } = await getRecommendMV(id)
+      //更新状态
+      setMvUrl(data.url)
+      setMvComments(hotComments)
+      setMvList(mvs)
+      setMvMsg(mvInfo)
+    }
+    fetchData()
+  }, [id])
 
   useEffect(() => {
+    async function fetchData() {
+      const { artist } = await getSingerInfo(artistId)
+      setSingerInfo(artist)
+    }
     fetchData()
-  }, [fetchData])
+  }, [artistId])
+
   return (
     <Fragment>
       <div className="mv_container">
@@ -80,11 +78,11 @@ export default function MvList() {
               <img src={SingerInfo.picUrl} alt="" />
               <span>{SingerInfo.name}</span>
             </div>
-            <p style={{ color: '#888787' }}>
+            <span style={{ color: '#888787' }}>
               {SingerInfo.publishTime
                 ? getNormalDate(SingerInfo.publishTime)
                 : ''}
-            </p>
+            </span>
             <div className="mv-desc">{SingerInfo.briefDesc}</div>
           </div>
         </div>
@@ -93,7 +91,7 @@ export default function MvList() {
           <h1>相关推荐</h1>
           <div className="mv-recommend-list">
             {mvList.map((item, index) => {
-              return index < 5 ? (
+              return (
                 <div
                   className="mv-rec-item"
                   key={index}
@@ -109,8 +107,6 @@ export default function MvList() {
                     <h3>{item.artistName}</h3>
                   </div>
                 </div>
-              ) : (
-                ''
               )
             })}
           </div>

@@ -32,7 +32,12 @@ export default function Discover() {
   return (
     <>
       {/* 轮播图 */}
-      <Carousel dots={{ className: 'dots' }} autoplay>
+      <Carousel
+        dots={{ className: 'dots' }}
+        autoplay
+        effect="fade"
+        easing="ease-out"
+      >
         {data.banners.map(item => {
           return (
             <div key={item.targetId}>
@@ -43,11 +48,7 @@ export default function Discover() {
       </Carousel>
       {/* 推荐歌单 */}
       <div className="recommend-container">
-        {data.recommendList.length > 0 ? (
-          <h2 style={{ fontWeight: '700' }}>推荐歌单</h2>
-        ) : (
-          ''
-        )}
+        <h2 style={{ fontWeight: '700' }}>推荐歌单</h2>
         <div className="recommend-list">
           {data.recommendList.map(item => {
             return (
@@ -65,11 +66,7 @@ export default function Discover() {
       </div>
       {/* 最新歌单 */}
       <div className="songs-container">
-        {data.songsList.length > 0 ? (
-          <h2 style={{ fontWeight: '700' }}>最新歌单</h2>
-        ) : (
-          ''
-        )}
+        <h2 style={{ fontWeight: '700' }}>最新歌单</h2>
 
         <ul className="songsList">
           {data.songsList.map(item => {

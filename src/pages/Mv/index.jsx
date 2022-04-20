@@ -1,15 +1,19 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { Col, Card } from 'antd'
 
 import { getAllMV } from '../../Api/mv'
 import './index.css'
 
+//筛选的数据
 const filterData = {
   place: ['全部', '内地', '港台', '欧美', '日本', '韩国'],
   type: ['全部', '官方版', '原声', '现场版', '网易出品'],
   order: ['上升最快', '最热', '最新'],
 }
 
+const { Meta } = Card
 export default function Mv() {
   const [area, setarea] = useState('全部')
   const [type, setType] = useState('全部')
@@ -18,15 +22,15 @@ export default function Mv() {
   const [mvList, setmvList] = useState([])
   // 使用路由导航
   const navigate = useNavigate()
-  //获取列表数据
-  const getMvList = useCallback(async () => {
-    const { data } = await getAllMV(area, type, order)
-    setmvList(data)
-  }, [area, type, order])
 
   useEffect(() => {
-    getMvList()
-  }, [getMvList])
+    async function fetchData() {
+      //获取列表数据
+      const { data } = await getAllMV(area, type, order)
+      setmvList(data)
+    }
+    fetchData()
+  }, [area, type, order])
 
   return (
     <div className="mvs-container">
@@ -96,21 +100,21 @@ export default function Mv() {
         </div>
       </div>
 
-      <div className="mv_wrap">
+      <div className="mv-list">
         {mvList.map((item, index) => {
           return (
-            <div
-              className="mv-item"
-              key={index}
-              onClick={() =>
-                navigate(`/mvlist?id=${item.id}&artistId=${item.artistId}`)
-              }
-            >
-              <img src={item.cover} alt="" />
-              <span>{item.name}</span>
-              <br />
-              <span style={{ color: '#ccc' }}>{item.artistName}</span>
-            </div>
+            <Col span={6} key={index}>
+              <Card
+                hoverable
+                style={{ width: 240, marginBottom: '10px' }}
+                cover={<img alt="" src={item.cover} />}
+                onClick={() =>
+                  navigate(`/mvlist?id=${item.id}&artistId=${item.artistId}`)
+                }
+              >
+                <Meta title={item.artistName} description={item.name} />
+              </Card>
+            </Col>
           )
         })}
       </div>

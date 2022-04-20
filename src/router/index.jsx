@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
+import { Spin } from 'antd'
 
 //引入路由组件
 /* import Mv from '../pages/Mv'
@@ -21,11 +22,15 @@ const Home = lazy(() => import('../containers/Home'))
 const Result = lazy(() => import('../pages/Result'))
 
 // 临时测试的组件
-const Test = lazy(() => import('../components/test'))
+// const Test = lazy(() => import('../components/test'))
 
 //防止出现闪屏现象
 const lazyLoad = Children => {
-  return <Suspense fallback={<>Loading...</>}>{Children}</Suspense>
+  return (
+    <Suspense fallback={<Spin className="global-loading" size='large'/>}>
+      {Children}
+    </Suspense>
+  )
 }
 
 const router = [
@@ -40,12 +45,12 @@ const router = [
   {
     path: 'mv',
     element: lazyLoad(<Mv />),
-    children: [
+    /*     children: [
       {
         path: 'test',
         element: lazyLoad(<Test />),
       },
-    ],
+    ], */
   },
   {
     path: 'mvlist',

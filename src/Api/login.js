@@ -2,7 +2,7 @@
 login接口
 */
 
-import request from './request'
+import request from '../utils/request'
 
 //通过电话号码登录
 export const loginByCellphone = (username, password) => {

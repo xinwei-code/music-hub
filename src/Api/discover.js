@@ -1,7 +1,7 @@
 /* 
 Discover接口
 */
-import request from './request'
+import request from '../utils/request'
 
 //轮播图接口
 export const getSwiper = () => {
