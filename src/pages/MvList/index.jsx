@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { Comment, Tooltip, Avatar } from 'antd'
+import { Comment, Tooltip, Avatar, Skeleton } from 'antd'
 
 // api
 import {
@@ -29,6 +29,8 @@ export default function MvList() {
   const [SingerInfo, setSingerInfo] = useState({})
   //mv介绍
   const [mvMsg, setMvMsg] = useState({})
+  //loading
+  const [loading, setloading] = useState(true)
 
   useEffect(() => {
     async function fetchData() {
@@ -41,6 +43,7 @@ export default function MvList() {
       setMvComments(hotComments)
       setMvList(mvs)
       setMvMsg(mvInfo)
+      setloading(false)
     }
     fetchData()
   }, [id])
@@ -55,82 +58,93 @@ export default function MvList() {
 
   return (
     <Fragment>
-      <div className="mv_container">
-        {/* 主体区域 */}
-        <div className="mv_main">
-          <div className="mv_title">
-            <span className="mv-icon">MV</span>
-            {/* 标题 */}
-            <span style={{ fontWeight: '700', fontSize: '22px' }}>
-              {mvMsg.name}
-            </span>
-          </div>
-          {/* mv */}
-          <video
-            autoPlay
-            poster={mvMsg.cover}
-            controls
-            id="audio"
-            src={mvurl}
-          ></video>
-          <div className="mv_description">
-            <div className="mv-singer">
-              <img src={SingerInfo.picUrl} alt="" />
-              <span>{SingerInfo.name}</span>
-            </div>
-            <span style={{ color: '#888787' }}>
-              {SingerInfo.publishTime
-                ? getNormalDate(SingerInfo.publishTime)
-                : ''}
-            </span>
-            <div className="mv-desc">{SingerInfo.briefDesc}</div>
-          </div>
-        </div>
-        {/* 相关推荐区域 */}
-        <div className="mv_recommend">
-          <h1>相关推荐</h1>
-          <div className="mv-recommend-list">
-            {mvList.map((item, index) => {
-              return (
-                <div
-                  className="mv-rec-item"
-                  key={index}
-                  onClick={() =>
-                    navigate(
-                      `/mvlist?id=${item.id}&artistId=${item.artists[0].id}`
-                    )
-                  }
-                >
-                  <img src={item.cover} alt="" />
-                  <div>
-                    <span>{item.name}</span>
-                    <h3>{item.artistName}</h3>
-                  </div>
+      <div>
+        {loading ? (
+          <Skeleton active />
+        ) : (
+          <div>
+            {' '}
+            <div className="mv_container">
+              {/* 主体区域 */}
+              <div className="mv_main">
+                <div className="mv_title">
+                  <span className="mv-icon">MV</span>
+                  {/* 标题 */}
+                  <span style={{ fontWeight: '700', fontSize: '22px' }}>
+                    {mvMsg.name}
+                  </span>
                 </div>
-              )
-            })}
+                {/* mv */}
+                <video
+                  autoPlay
+                  poster={mvMsg.cover}
+                  controls
+                  id="audio"
+                  src={mvurl}
+                ></video>
+                <div className="mv_description">
+                  <div className="mv-singer">
+                    <img src={SingerInfo.picUrl} alt="" />
+                    <span>{SingerInfo.name}</span>
+                  </div>
+                  <span style={{ color: '#888787' }}>
+                    {SingerInfo.publishTime
+                      ? getNormalDate(SingerInfo.publishTime)
+                      : ''}
+                  </span>
+                  <div className="mv-desc">{SingerInfo.briefDesc}</div>
+                </div>
+              </div>
+              {/* 相关推荐区域 */}
+              <div className="mv_recommend">
+                <h1>相关推荐</h1>
+                <div className="mv-recommend-list">
+                  {mvList.map((item, index) => {
+                    return (
+                      <div
+                        className="mv-rec-item"
+                        key={index}
+                        onClick={() =>
+                          navigate(
+                            `/mvlist?id=${item.id}&artistId=${item.artists[0].id}`
+                          )
+                        }
+                      >
+                        <img src={item.cover} alt="" />
+                        <div>
+                          <span>{item.name}</span>
+                          <h3>{item.artistName}</h3>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className="mv_comment">
+              <h2>热门评论({mvcomments.length})</h2>
+              {mvcomments.map((item, index) => {
+                return (
+                  <Comment
+                    key={index}
+                    author={
+                      <span style={{ color: '#409EFF' }}>
+                        {item.user.nickname}
+                      </span>
+                    }
+                    avatar={<Avatar src={item.user.avatarUrl} alt="" />}
+                    content={<p>{item.content}</p>}
+                    datetime={
+                      <Tooltip title={getNormalDate(item.time)}>
+                        <span>{item.timeStr}</span>
+                      </Tooltip>
+                    }
+                  />
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="mv_comment">
-        <h2>热门评论({mvcomments.length})</h2>
-        {mvcomments.map((item, index) => {
-          return (
-            <Comment
-              key={index}
-              author={
-                <span style={{ color: '#409EFF' }}>{item.user.nickname}</span>
-              }
-              avatar={<Avatar src={item.user.avatarUrl} alt="" />}
-              content={<p>{item.content}</p>}
-              datetime={
-                <Tooltip title={getNormalDate(item.time)}>
-                  <span>{item.timeStr}</span>
-                </Tooltip>
-              }
-            />
-          )
-        })}
+        )}
       </div>
     </Fragment>
   )

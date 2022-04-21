@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate, useLocation, useRoutes } from 'react-router-dom'
 import {
   PlayCircleFilled,
@@ -6,8 +6,6 @@ import {
   FolderOutlined,
   HomeOutlined,
 } from '@ant-design/icons'
-
-import PubSub from 'pubsub-js'
 
 /* //引入路由组件
 import Mv from '../../pages/Mv'
@@ -35,20 +33,12 @@ export default function Main() {
   const navigate = useNavigate()
   //通过location.pathname获得当前url
   const location = useLocation()
-  const [top, settop] = useState(0)
-
-  useEffect(() => {
-    PubSub.subscribe('scrollTop', (msg, data) => {
-      console.log(data)
-      settop(data + 1)
-    })
-  }, [])
 
   return (
     <>
       <div id="main">
         {/* 主体左侧区域 */}
-        <div id="sider">
+        <div id="sider" style={{ minWidth: '200px' }}>
           {itemList.map(item => {
             return (
               <div
@@ -67,7 +57,7 @@ export default function Main() {
           })}
         </div>
         {/* 主体右侧区域 */}
-        <div className="content" ref={c => (c ? (c.scrollTop = top) : 0)}>
+        <div className="content">
           {/*注册路由 */}
           {/*<Routes>
             <Route path="/mv" element={<Mv />}></Route>

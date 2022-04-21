@@ -15,7 +15,6 @@
     "iconv-lite": "^0.6.3",
     "node-xlsx": "^0.19.0",
     "nprogress": "^0.2.0",
-    "pubsub-js": "^1.9.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

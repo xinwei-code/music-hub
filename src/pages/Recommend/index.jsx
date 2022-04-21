@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Pagination, Tag, Card, Col } from 'antd'
+import { Pagination, Tag, Card, Col, Skeleton } from 'antd'
 
 import { getDescription, getPlayList } from '../../Api/recommend'
 import './index.css'
@@ -31,6 +31,7 @@ export default function Recommend() {
   const [curPage, setCurPage] = useState(1)
   // 歌单总数
   const [total, setTotal] = useState(0)
+  const [loading, setloading] = useState(true)
   // 导航
   const navigate = useNavigate()
 
@@ -46,6 +47,7 @@ export default function Recommend() {
       setplaylist(data)
       //更新歌单总数
       setTotal(total)
+      setloading(false)
     }
     fetchData()
   }, [curTag, curPage])
@@ -72,57 +74,63 @@ export default function Recommend() {
 
   return (
     <Fragment>
-      <div className="recommend-head">
-        <img src={recommendData.coverImgUrl} alt="" />
-        <div className="recommend-head-right">
-          <h2>精品歌单</h2>
-          <span>{recommendData.description}</span>
+      {loading ? (
+        <Skeleton active/>
+      ) : (
+        <div>
+          <div className="recommend-head">
+            <img src={recommendData.coverImgUrl} alt="" />
+            <div className="recommend-head-right">
+              <h2>精品歌单</h2>
+              <span>{recommendData.description}</span>
+            </div>
+          </div>
+
+          <div className="tag-list">
+            {tagList.map((tag, index) => {
+              return (
+                <Tag
+                  color="blue"
+                  style={{ cursor: 'pointer' }}
+                  key={index}
+                  onClick={handleTagClick(index)}
+                >
+                  {tag}
+                </Tag>
+              )
+            })}
+          </div>
+
+          <div className="recommend-songs">
+            {playlist.map((item, index) => {
+              return (
+                <Col span={6} key={index}>
+                  <Card
+                    hoverable
+                    style={{ width: 240, marginBottom: '10px' }}
+                    cover={<img alt="" src={item.coverImgUrl} />}
+                    onClick={() => navigate('/songslist?id=' + item.id)}
+                  >
+                    <Meta description={item.name} />
+                  </Card>
+                </Col>
+              )
+            })}
+          </div>
+
+          {/* 分页器 */}
+          <Pagination
+            showQuickJumper
+            pageSizeOptions={['12', '24', '36', '48']}
+            current={curPage}
+            defaultCurrent={1}
+            defaultPageSize={12}
+            total={total}
+            onChange={onChange}
+            onShowSizeChange={onShowSizeChange}
+          />
         </div>
-      </div>
-
-      <div className="tag-list">
-        {tagList.map((tag, index) => {
-          return (
-            <Tag
-              color="blue"
-              style={{ cursor: 'pointer' }}
-              key={index}
-              onClick={handleTagClick(index)}
-            >
-              {tag}
-            </Tag>
-          )
-        })}
-      </div>
-
-      <div className="recommend-songs">
-        {playlist.map((item, index) => {
-          return (
-            <Col span={6} key={index}>
-              <Card
-                hoverable
-                style={{ width: 240, marginBottom: '10px' }}
-                cover={<img alt="" src={item.coverImgUrl} />}
-                onClick={() => navigate('/songslist?id=' + item.id)}
-              >
-                <Meta description={item.name} />
-              </Card>
-            </Col>
-          )
-        })}
-      </div>
-
-      {/* 分页器 */}
-      <Pagination
-        showQuickJumper
-        pageSizeOptions={['12', '24', '36', '48']}
-        current={curPage}
-        defaultCurrent={1}
-        defaultPageSize={12}
-        total={total}
-        onChange={onChange}
-        onShowSizeChange={onShowSizeChange}
-      />
+      )}
     </Fragment>
   )
 }

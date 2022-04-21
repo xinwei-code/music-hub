@@ -43,3 +43,8 @@ ul {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.active {
+  border-radius: 8px;
+  color: blue;
+  background-color: #abd5ff;
+}
