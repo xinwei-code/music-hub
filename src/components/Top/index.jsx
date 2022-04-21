@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { Layout, Input, Button, Dropdown, Menu } from 'antd'
 import {
   LeftCircleFilled,
@@ -7,7 +7,6 @@ import {
   SwitcherOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import PubSub from 'pubsub-js'
 
 import './index.css'
 
@@ -20,17 +19,12 @@ export default function Top() {
 
   //点击搜索的回调
   function onSearch(keyword) {
-    // console.log(this)
     navigate('/result?title=' + keyword)
     console.log(keyword)
   }
 
-  const [userInfo, setuserInfo] = useState({})
-  useEffect(() => {
-    PubSub.subscribe('profile', (msg, data) => {
-      setuserInfo(data)
-    })
-  }, [])
+  const [userInfo] = useState({})
+
 
   // 点击下拉菜单的回调
   const onClick = ({ key }) => {

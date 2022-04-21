@@ -1,13 +1,11 @@
 import React from 'react'
-import { Input, Button, Form, Checkbox, message } from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Input, Button, Form, Checkbox, message, Card } from 'antd'
 
 import { loginByCellphone } from '../../Api/login'
 
 import './index.css'
 
 export default function Login(props) {
-  //   const [userInfo, setUserInfo] = useState({})
   const onFinish = async values => {
     const { code, profile, token } = await loginByCellphone(
       values.username,
@@ -18,50 +16,57 @@ export default function Login(props) {
     }
     props.getUserInfo(profile, token)
   }
+  const onFinishFailed = error => {
+    console.log(error)
+  }
 
   return (
-    <div className="login-contarner">
-      <h3 style={{ textAlign: 'center', fontWeight: '700' }}>登录网易云</h3>
-      <Form
-        name="normal_login"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
+    <div className='login-wrap'>
+      <Card
+        headStyle={{ textAlign: 'center', fontWeight: '700' }}
+        title="登录网易云"
+        style={{ width: 350,overflow:'hidden' }}
       >
-        <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Please input your Username!' }]}
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="请输入手机号"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: 'Please input your Password!' }]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="请输入密码"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Form.Item
+            label="手机号"
+            name="手机号"
+            rules={[{ required: true, message: 'Please input your username!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="密码"
+            name="密码"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{ offset: 8, span: 16 }}
+          >
             <Checkbox>记住我</Checkbox>
           </Form.Item>
-        </Form.Item>
 
-        <Form.Item>
-          <Button
-            htmlType="submit"
-            style={{ width: '100%', borderRadius: '8px', height: '40px' }}
-            type="primary"
-          >
-            登录
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   )
 }

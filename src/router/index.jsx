@@ -20,6 +20,7 @@ const SongsList = lazy(() => import('../containers/SongsList'))
 const MvList = lazy(() => import('../pages/MvList'))
 const Home = lazy(() => import('../containers/Home'))
 const Result = lazy(() => import('../pages/Result'))
+const NotFound = lazy(() => import('../pages/NotFound'))
 
 // 临时测试的组件
 // const Test = lazy(() => import('../components/test'))
@@ -39,11 +40,11 @@ const router = [
     element: lazyLoad(<Navigate to={'discover'} />),
   },
   {
-    path: 'discover',
+    path: '/discover',
     element: lazyLoad(<Discover />),
   },
   {
-    path: 'mv',
+    path: '/mv',
     element: lazyLoad(<Mv />),
     /*     children: [
       {
@@ -53,33 +54,37 @@ const router = [
     ], */
   },
   {
-    path: 'mvlist',
+    path: '/mvlist',
     element: lazyLoad(<MvList />),
   },
   {
-    path: 'songslist',
+    path: '/songslist',
     element: lazyLoad(<SongsList />),
   },
   {
-    path: 'recommend',
+    path: '/recommend',
     element: lazyLoad(<Recommend />),
   },
   {
-    path: 'songs',
+    path: '/songs',
     element: lazyLoad(<Songs />),
   },
   {
-    path: 'login',
+    path: '/login',
     element: lazyLoad(<Login />),
   },
   {
-    path: 'home',
+    path: '/home',
     element: lazyLoad(<Home />),
   },
   {
-    path: 'result',
+    path: '/result',
     element: lazyLoad(<Result />),
   },
+  {
+    path: '*',
+    element:lazyLoad(<NotFound/>)
+  }
 ]
 
 export default router

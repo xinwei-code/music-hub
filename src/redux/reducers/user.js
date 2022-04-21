@@ -1,5 +1,4 @@
 import { LOGIN, LOGOUT } from '../constance'
-import PubSub from 'pubsub-js'
 
 //初始化数据
 const initState = {
@@ -28,10 +27,10 @@ export default function userReducer(preState = initState, action) {
         //登陆成功后跳转到首页
         console.log('登录成功。')
         //发布消息
-        PubSub.publish('profile', { ...preState })
+        // PubSub.publish('profile', { ...preState })
       } else {
         //发布消息
-        PubSub.publish('profile', { ...preState })
+        // PubSub.publish('profile', { ...preState })
       }
       return preState
 
