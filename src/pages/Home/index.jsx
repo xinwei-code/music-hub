@@ -1,13 +1,16 @@
-import { message, Divider } from 'antd'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import { Divider } from 'antd'
+import React, { Fragment, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { getMyData } from '../../Api/myHome'
 import './index.css'
-export default function Home(props) {
+export default function Home() {
   const navigate = useNavigate()
   // 从redux获取user状态
-  const { userInfo } = props.user
+  const userInfo = useSelector(state => {
+    return state.user.userInfo
+  })
 
   const [detailInfo, setDetailInfo] = useState({
     level: 0,
@@ -17,23 +20,34 @@ export default function Home(props) {
     nickname: '',
   })
 
-  // 根据uid获取用户的详细状态
-  const getUserDetail = useCallback(async () => {
-    const {
-      level,
-      profile: { follows, playlistCount, followeds, nickname },
-    } = await getMyData(userInfo.userId)
-    //   console.log(level, follows, playlistCount, followeds)
-    setDetailInfo({ level, follows, playlistCount, followeds, nickname })
-  }, [userInfo])
-
   useEffect(() => {
+    // 根据uid获取用户的详细状态
+    async function fetchData() {
+      if (Object.keys(userInfo).length === 0) {
+        //用户没有登录，或者身份过期
+        return navigate('/login')
+      }
+      const {
+        level,
+        profile: { follows, playlistCount, followeds, nickname },
+      } = await getMyData(userInfo.userId)
+      setDetailInfo({
+        level,
+        follows,
+        playlistCount,
+        followeds,
+        nickname,
+      })
+    }
+    fetchData()
+  }, [userInfo, navigate])
+
+  /*   useEffect(() => {
     if (!props.user.isLogin) {
       message.error('请先登录')
       navigate('/login')
     }
-    getUserDetail()
-  }, [props, navigate, getUserDetail])
+  }, [props, navigate]) */
   return (
     <Fragment>
       <div className="userInfo-container">
@@ -42,7 +56,9 @@ export default function Home(props) {
         </div>
         <div className="info-right">
           <div>
-            <span style={{fontSize:'22px',marginRight:'20px'}}>{detailInfo.nickname}</span>
+            <span style={{ fontSize: '22px', marginRight: '20px' }}>
+              {detailInfo.nickname}
+            </span>
             <span>Lv{detailInfo.level}</span>
           </div>
           <Divider style={{ width: '100%' }} />

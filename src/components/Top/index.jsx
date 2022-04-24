@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { Layout, Input, Button, Dropdown, Menu } from 'antd'
 import {
   LeftCircleFilled,
@@ -7,32 +7,40 @@ import {
   SwitcherOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { logout } from '../../redux/actions/user'
 import './index.css'
 
 export default function Top() {
   const { Header } = Layout
   const { Search } = Input
 
+  const dispatch = useDispatch()
   // 路由导航
   const navigate = useNavigate()
 
   //点击搜索的回调
   function onSearch(keyword) {
     navigate('/result?title=' + keyword)
-    console.log(keyword)
   }
 
-  const [userInfo] = useState({})
-
-
+  //从store获取用户信息
+  const userInfo = useSelector(state => {
+    return {
+      userInfo: state.user.userInfo,
+      isLogin: state.user.isLogin,
+    }
+  })
   // 点击下拉菜单的回调
   const onClick = ({ key }) => {
     if (key === '2') {
       navigate('home')
     }
-    if (key === 3) {
+    if (key === '3') {
       // 退出登录
+      dispatch(logout())
+      navigate('/')
     }
   }
   // 下拉菜单选项
@@ -51,6 +59,35 @@ export default function Top() {
       </Menu.Item>
     </Menu>
   )
+
+  const LogoutBox = () => {
+    return (
+      <Button
+        type="primary"
+        style={{ borderRadius: '8px', marginLeft: '5px' }}
+        onClick={() => navigate('login')}
+      >
+        登录
+      </Button>
+    )
+  }
+
+  const LoginBox = () => {
+    return (
+      <Dropdown overlay={menu}>
+        <img
+          src={userInfo.userInfo.avatarUrl}
+          alt=""
+          style={{
+            width: '35px',
+            height: '35px',
+            borderRadius: '50%',
+            marginLeft: '15px',
+          }}
+        />
+      </Dropdown>
+    )
+  }
 
   return (
     <>
@@ -81,35 +118,8 @@ export default function Top() {
             enterButton
             allowClear
           />
-
-          {!userInfo.isLogin ? (
-            <Button
-              type="primary"
-              style={{ borderRadius: '8px', marginLeft: '5px' }}
-              onClick={() => navigate('login')}
-            >
-              登录
-            </Button>
-          ) : (
-            ''
-          )}
+          {userInfo.isLogin ? <LoginBox /> : <LogoutBox />}
           {/* 头像 */}
-          {userInfo.isLogin ? (
-            <Dropdown overlay={menu}>
-              <img
-                src={userInfo.userInfo.avatarUrl}
-                alt=""
-                style={{
-                  width: '35px',
-                  height: '35px',
-                  borderRadius: '50%',
-                  marginLeft: '15px',
-                }}
-              />
-            </Dropdown>
-          ) : (
-            ''
-          )}
         </div>
       </Header>
     </>

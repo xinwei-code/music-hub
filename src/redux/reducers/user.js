@@ -14,29 +14,24 @@ export default function userReducer(preState = initState, action) {
   const { type, data } = action
   switch (type) {
     case LOGIN:
-      if (data) {
-        //登录
-        //保存token
-        sessionStorage.setItem('token', data.token)
-        //修改登录状态为true
-        preState.isLogin = true
-        sessionStorage.setItem('isLogin', true)
-        // 保存用户信息
-        preState.userInfo = data.profile
-        sessionStorage.setItem('userInfo', JSON.stringify(data.profile))
-        //登陆成功后跳转到首页
-        console.log('登录成功。')
-        //发布消息
-        // PubSub.publish('profile', { ...preState })
-      } else {
-        //发布消息
-        // PubSub.publish('profile', { ...preState })
+      sessionStorage.setItem('token', data.token)
+      sessionStorage.setItem('isLogin', true)
+      sessionStorage.setItem('userInfo', JSON.stringify(data.profile))
+      return {
+        ...preState,
+        token: data.token,
+        isLogin: true,
+        userInfo: data.profile,
       }
-      return preState
-
     case LOGOUT: //退出登录
-      return preState
-
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('isLogin')
+      sessionStorage.removeItem('userInfo')
+      return {
+        token: '',
+        userInfo: {},
+        isLogin: false,
+      }
     default:
       return preState
   }

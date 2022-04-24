@@ -10,7 +10,7 @@ import Discover from '../pages/Discover'
 import SongsList from '../pages/SongsList'
 import MvList from '../pages/MyList' */
 // 路由懒加载
-const Login = lazy(() => import('../containers/Login'))
+const Login = lazy(() => import('../pages/Login'))
 const Mv = lazy(() => import('../pages/Mv'))
 const Recommend = lazy(() => import('../pages/Recommend'))
 const Songs = lazy(() => import('../containers/Songs'))

@@ -1,31 +1,41 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Input, Button, Form, Checkbox, message, Card } from 'antd'
 
+import { login } from '../../redux/actions/user'
 import { loginByCellphone } from '../../Api/login'
 
 import './index.css'
 
-export default function Login(props) {
+export default function Login() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  //先展示loading效果
   const onFinish = async values => {
+    message.loading('登录中。。。', 0)
     const { code, profile, token } = await loginByCellphone(
-      values.username,
+      values.phone,
       values.password
     )
     if (code !== 200) {
       return message.error('登陆失败，账号或密码错误!')
     }
-    props.getUserInfo(profile, token)
-  }
-  const onFinishFailed = error => {
-    console.log(error)
+    //将用户信息保存到容器
+    dispatch(login({ profile, token }))
+    //路由跳转到个人主页
+    navigate('/discover', { replace: true })
+    //展示登录成功loading, 先销毁上一个message
+    message.destroy()
+    message.success('登陆成功')
   }
 
   return (
-    <div className='login-wrap'>
+    <div className="login-wrap">
       <Card
         headStyle={{ textAlign: 'center', fontWeight: '700' }}
         title="登录网易云"
-        style={{ width: 350,overflow:'hidden' }}
+        style={{ width: 350, overflow: 'hidden' }}
       >
         <Form
           name="basic"
@@ -33,21 +43,20 @@ export default function Login(props) {
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
             label="手机号"
-            name="手机号"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            name="phone"
+            rules={[{ required: true, message: '手机号不能为空！' }]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             label="密码"
-            name="密码"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            name="password"
+            rules={[{ required: true, message: '密码不能为空！' }]}
           >
             <Input.Password />
           </Form.Item>

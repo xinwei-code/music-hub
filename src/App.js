@@ -1,7 +1,7 @@
 
 // import Top from './components/Top'
 import Main from './components/Main'
-import Top from './containers/Top'
+import Top from './components/Top'
 import Audio from './containers/Audio'
 
 //全局样式
