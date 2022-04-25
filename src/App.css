@@ -1,7 +1,6 @@
 /* 
 全局样式文件
 */
-
 /* 导入antd样式 */
 @import '~antd/dist/antd.css';
 .content {
@@ -22,27 +21,21 @@ body {
   overflow: hidden;
 }
 
-/* 底部播放器 */
-.audio-control {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
 ul {
   list-style: none;
 }
-
+/* antd分页器 */
 .ant-pagination-options {
   display: none !important;
 }
-
+/* 全局loading */
 .global-loading {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+/* tag选中时的样式 */
 .active {
   border-radius: 8px;
   color: blue;

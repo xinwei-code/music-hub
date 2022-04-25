@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Skeleton } from 'antd'
-import { getSongs } from '../../Api/songs'
 
+import { getSongs } from '../../Api/songs'
 import './index.css'
 import { format } from '../../utils/timeFormater'
+import usePlaySong from '../../hook/usePlaySong'
 
 const columns = [
   {
@@ -39,6 +40,7 @@ const columns = [
 ]
 
 export default function Songs(props) {
+  const playSong = usePlaySong()
   const [tag, setTag] = useState('全部')
 
   //loading
@@ -93,7 +95,7 @@ export default function Songs(props) {
         obj.index = index + 1
         obj.coverImg = (
           <img
-            onClick={() => props.getSongInfo({ id: item.id, name: item.name })}
+            onClick={() => playSong({ id: item.id, name: item.name })}
             style={{ width: '60px', height: '60px', cursor: 'pointer' }}
             src={item.album.picUrl}
             alt=""
@@ -112,7 +114,8 @@ export default function Songs(props) {
       setloading(false)
     }
     fetchData()
-  }, [typeId, props])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ typeId])
 
   return (
     <>

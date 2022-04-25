@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Carousel, Card, Skeleton } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
+
 import { getSwiper, getRecommend, getSongs, getMv } from '../../Api/discover'
 
 import './index.css'
+import usePlaySong from '../../hook/usePlaySong'
 
 const { Meta } = Card
 export default function Discover() {
+  const playSong =  usePlaySong()
   // state
   const [data, setData] = useState({
     banners: [], //轮播图
@@ -72,18 +75,18 @@ export default function Discover() {
             </div>
           </div>
 
-          {/* 最新歌单 */}
+          {/* 最新歌曲 */}
           <div className="songs-container">
-            <h2 style={{ fontWeight: '700' }}>最新歌单</h2>
+            <h2 style={{ fontWeight: '700' }}>最新歌曲</h2>
             <div>
               {data.songsList.map(item => {
                 return (
                   <Card
                     hoverable
                     key={item.id}
-                    style={{ width: 180, margin: '10px 0' }}
+                    style={{ width: 180, margin: '10px 20px 10px 0' }}
                     cover={<img alt="" src={item.picUrl} />}
-                    onClick={() => navigate('/songslist?id=' + item.id)}
+                    onClick={() => playSong(item)}
                   >
                     <Meta
                       title={item.name}

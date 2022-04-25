@@ -1,0 +1,6 @@
+/* 底部播放器 */
+.audio-control {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

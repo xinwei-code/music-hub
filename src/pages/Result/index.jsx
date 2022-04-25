@@ -6,10 +6,12 @@ import { getSearchResult } from '../../Api/searcch'
 import { format } from '../../utils/timeFormater'
 
 import './index.css'
+import usePlaySong from '../../hook/usePlaySong'
 
 const { TabPane } = Tabs
 
 export default function Result() {
+  const playSong = usePlaySong()
   const [searchParmas] = useSearchParams()
   const navigate = useNavigate()
   const kw = searchParmas.get('title')
@@ -104,6 +106,7 @@ export default function Result() {
             obj.singer = item.artists[0].name
             obj.key = index
             obj.album = item.album.name
+            obj.id = item.id
             arr.push(obj)
           })
           setTracks(arr)
@@ -138,7 +141,17 @@ export default function Result() {
           </div>
           <Tabs defaultActiveKey="1" onChange={changeType}>
             <TabPane tab="歌曲" key="1">
-              <Table columns={columns} dataSource={tracks} pagination={false} />
+              <Table
+                onRow={record => {
+                  return {
+                    onClick: () =>
+                      playSong({ id: record.id, name: record.title }),
+                  }
+                }}
+                columns={columns}
+                dataSource={tracks}
+                pagination={false}
+              />
             </TabPane>
             <TabPane tab="歌单" key="2">
               <ul className="playlist-result">

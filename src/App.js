@@ -1,8 +1,7 @@
-
 // import Top from './components/Top'
 import Main from './components/Main'
 import Top from './components/Top'
-import Audio from './containers/Audio'
+import Audio from './components/Audio'
 
 //全局样式
 import './App.css'

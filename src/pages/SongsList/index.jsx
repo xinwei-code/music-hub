@@ -8,16 +8,17 @@ import {
   Avatar,
   Tooltip,
   Skeleton,
+  message,
 } from 'antd'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { CaretDownOutlined } from '@ant-design/icons'
 
 import { format } from '../../utils/timeFormater'
 import { getSongsList } from '../../Api/songs'
 import { getHotComment, getNewComment } from '../../Api/commnet'
 
+import usePlaySong from '../../hook/usePlaySong'
 import './index.css'
-
 import dayjs from 'dayjs'
 
 const { TabPane } = Tabs
@@ -56,13 +57,12 @@ const columns = [
   },
 ]
 
-export default function SongsList(props) {
-  // 最新评论距离顶部的高度
-  // let newCommentHeight = 0
-
-  const { getSongInfo } = props
+export default function SongsList() {
+  const playSong = usePlaySong()
 
   const [searchParams] = useSearchParams()
+
+  const navigate = useNavigate()
 
   // 搜索参数
   const id = searchParams.get('id')
@@ -122,19 +122,26 @@ export default function SongsList(props) {
     })
   }
 
+  let playlist = null
   useEffect(() => {
     async function fetchData() {
-      const { playlist } = await getSongsList(id)
+      try {
+        const { playlist: data } = await getSongsList(id)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        playlist = data
+      } catch (error) {
+        message.error('歌单资源不存在。')
+        return navigate(-1)
+      }
       setplayMsg(playlist)
 
       const arr = []
-
       playlist.tracks.forEach((song, index) => {
         const obj = {}
         obj.index = index + 1
         obj.coverImg = (
           <img
-            onClick={() => getSongInfo({ id: song.id, name: song.name })}
+            onClick={() => playSong({ id: song.id, name: song.name })}
             style={{
               width: '70px',
               height: '70px',
@@ -157,7 +164,7 @@ export default function SongsList(props) {
       setloading(false)
     }
     fetchData()
-  }, [id, getSongInfo])
+  }, [id, navigate])
 
   useEffect(() => {
     async function fetchData() {

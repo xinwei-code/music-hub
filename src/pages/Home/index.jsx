@@ -42,12 +42,6 @@ export default function Home() {
     fetchData()
   }, [userInfo, navigate])
 
-  /*   useEffect(() => {
-    if (!props.user.isLogin) {
-      message.error('请先登录')
-      navigate('/login')
-    }
-  }, [props, navigate]) */
   return (
     <Fragment>
       <div className="userInfo-container">

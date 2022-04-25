@@ -16,7 +16,7 @@
 .songs-container>div {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .mv-wrap {
