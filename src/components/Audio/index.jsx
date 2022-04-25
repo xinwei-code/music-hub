@@ -1,13 +1,10 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './index.css'
 //actions
 import { playAudio } from '../../redux/actions/song'
 const Audio = () => {
-  useEffect(() => {
-    return () => {}
-  }, [])
   const dispatch = useDispatch()
   const songInfo = useSelector(state => {
     return state.song

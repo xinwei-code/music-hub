@@ -13,13 +13,9 @@ export default function songListReducer(preState = initState, action) {
     case PLAY: //播放歌曲
       const { musicUrl, musicName } = data
       return { musicUrl, musicName }
-
     case PLAYAUDIO: //audio播放
       document.title = `▶ ${preState.musicName}`
       return preState
-
-    case PLAYVIDEO: //video播放
-      break
     default:
       return preState
   }
